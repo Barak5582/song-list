@@ -9,7 +9,7 @@ async function bootstrap() {
 
   app.use(cors()); // Enable CORS
 
-  app.useGlobalPipes(new ValidationPipe()); // Use ValidationPipe for request validation
+  app.useGlobalPipes(new ValidationPipe());
 
   // Swagger setup
   const config = new DocumentBuilder()
