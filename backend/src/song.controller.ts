@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Song } from './song.entity';
@@ -12,6 +12,11 @@ export class SongsController {
 
   @Get('songs')
   async getSongs(): Promise<Song[]> {
-    return this.songRepository.find({ order: { band: 'ASC' } });
+    try {
+      return this.songRepository.find({ order: { band: 'ASC' } });
+    } catch (error) {
+      console.error('Error fetching songs:', error);
+      throw new InternalServerErrorException('An error occurred while fetching songs.');
+    }
   }
 }
